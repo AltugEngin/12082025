@@ -1,12 +1,14 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from "../assets/keas-logo.png"
+import userLogo from "../assets/wood-pile.svg"
+import { useAuth } from '../context/AuthContext'
+
 
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  imageUrl: userLogo
 }
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -15,17 +17,22 @@ const navigation = [
   { name: 'Calendar', href: '#', current: false },
   { name: 'Reports', href: '#', current: false },
 ]
-const userNavigation = [
-  { name: 'Your profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Dashboard() {
+const { signOut, session }=useAuth()
+
+const userNavigation = [
+  { name: session?.user?.email, href: '#',onclick:"" },
+  { name: 'Settings', href: '#', onclick:"" },
+  { name: 'Sign out', href: "#", onclick: signOut },
+]
+
+  
   return (
     <>
       {/*
@@ -37,7 +44,7 @@ export default function Dashboard() {
         ```
       */}
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800 dark:bg-gray-800/50">
+        <Disclosure as="nav" className="bg-gray-600 dark:bg-gray-800/50">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
@@ -45,7 +52,7 @@ export default function Dashboard() {
                   <img
                     alt="Kastamonu Entegre"
                     src={logo}
-                    className='h-48 w-96 object-scale-down'
+                    className='h-24 w-48 object-scale-down'
                   />
                 </div>
                 <div className="hidden md:block">
@@ -98,6 +105,7 @@ export default function Dashboard() {
                       {userNavigation.map((item) => (
                         <MenuItem key={item.name}>
                           <a
+                          onClick={item.onclick}
                             href={item.href}
                             className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden dark:text-gray-300 dark:data-focus:bg-white/5"
                           >

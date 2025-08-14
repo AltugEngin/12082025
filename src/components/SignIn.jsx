@@ -7,12 +7,12 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signInWithEmail, signOut } = useAuth();
+  const { signInWithEmail } = useAuth();
   
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const { session, error } = await signInWithEmail(email, password);
+    const { error } = await signInWithEmail(email, password);
     
     if (error) {
       
