@@ -3,20 +3,10 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from "../assets/keas-logo.png"
 import userLogo from "../assets/wood-pile.svg"
 import { useAuth } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl: userLogo
-}
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
-]
+
 
 
 function classNames(...classes) {
@@ -26,10 +16,25 @@ function classNames(...classes) {
 export default function Dashboard() {
 const { signOut, session }=useAuth()
 
+
+const user = {
+  
+  email: session?.user?.email,
+  imageUrl: userLogo
+}
+
 const userNavigation = [
   { name: session?.user?.email, href: '#',onclick:"" },
   { name: 'Settings', href: '#', onclick:"" },
   { name: 'Sign out', href: "#", onclick: signOut },
+]
+
+const navigation = [
+  { name: 'Dashboard', onclick: "/dashboard", current: true },
+  { name: 'Team',onclick: "/team", current: false },
+  { name: 'Projects',onclick: "/team", current: false },
+  { name: 'Calendar',onclick: "/team", current: false },
+  { name: 'Reports',onclick: "/team", current: false },
 ]
 
   
@@ -58,9 +63,9 @@ const userNavigation = [
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.onclick}
                         aria-current={item.current ? 'page' : undefined}
                         className={classNames(
                           item.current
@@ -70,7 +75,7 @@ const userNavigation = [
                         )}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -106,7 +111,7 @@ const userNavigation = [
                         <MenuItem key={item.name}>
                           <a
                           onClick={item.onclick}
-                            href={item.href}
+                            
                             className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden dark:text-gray-300 dark:data-focus:bg-white/5"
                           >
                             {item.name}
@@ -132,10 +137,11 @@ const userNavigation = [
           <DisclosurePanel className="md:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
               {navigation.map((item) => (
-                <DisclosureButton
+                <Link
                   key={item.name}
+                  to={item.onclick}
                   as="a"
-                  href={item.href}
+                  
                   aria-current={item.current ? 'page' : undefined}
                   className={classNames(
                     item.current
@@ -145,7 +151,7 @@ const userNavigation = [
                   )}
                 >
                   {item.name}
-                </DisclosureButton>
+                </Link>
               ))}
             </div>
             <div className="border-t border-white/10 pt-4 pb-3">
@@ -158,7 +164,7 @@ const userNavigation = [
                   />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base/5 font-medium text-white">{user.name}</div>
+                  
                   <div className="text-sm font-medium text-gray-400">{user.email}</div>
                 </div>
                 <button
@@ -175,7 +181,7 @@ const userNavigation = [
                   <DisclosureButton
                     key={item.name}
                     as="a"
-                    href={item.href}
+                    onClick={item.onclick}
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white"
                   >
                     {item.name}
@@ -192,7 +198,7 @@ const userNavigation = [
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{/* Your content */} <p>DENEME</p></div>
         </main>
       </div>
     </>
