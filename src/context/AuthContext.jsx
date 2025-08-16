@@ -7,6 +7,21 @@ export const AuthContextProvider = ({ children }) => {
   const [session, setSession] = useState("");
   console.log(session);
 
+  // Sign up
+  const signUpNewUser = async (email, password) => {
+    const { data, error } = await supabase.auth.signUp({
+      email: email.toLowerCase(),
+      password: password,
+    });
+
+    if (error) {
+      console.error("Error signing up: ", error);
+      return { success: false, error };
+    }
+
+    return { success: true, data };
+  };
+
   //SIGN IN
   const signInWithEmail = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -33,7 +48,9 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <authContext.Provider value={{ signInWithEmail, signOut, session }}>
+    <authContext.Provider
+      value={{ signInWithEmail, signOut, session, signUpNewUser }}
+    >
       {children}
     </authContext.Provider>
   );

@@ -1,23 +1,28 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+
 import logo from "../assets/keas-logo.png";
 
-export default function SignIn() {
+export default function SignUp() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signInWithEmail } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { signUpNewUser } = useAuth();
 
-  const handleSignIn = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    const { error } = await signInWithEmail(email, password);
-
-    if (error) {
-      throw new Error(error.message);
-    } else {
-      navigate("/dashboard");
+    setLoading(true);
+    const { error } = await signUpNewUser(email, password);
+    try {
+      if (error) {
+        throw new Error(error.message);
+      } else {
+        navigate("/");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,12 +44,12 @@ export default function SignIn() {
             className="h-48 w-96 object-scale-down"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">
-            Sign in to your account
+            Sign up
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={handleSignIn} className="space-y-6">
+          <form onSubmit={handleSignUp} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -74,14 +79,7 @@ export default function SignIn() {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-400 hover:text-indigo-300"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
+                <div className="text-sm"></div>
               </div>
               <div className="mt-2">
                 <input
@@ -99,23 +97,14 @@ export default function SignIn() {
 
             <div>
               <button
+                disabled={loading}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Sign in
+                Sign up
               </button>
             </div>
           </form>
-
-          <p className="mt-10 text-center text-sm/6 text-gray-400">
-            Not a member?{" "}
-            <Link
-              to="/signup"
-              className="font-semibold text-indigo-400 hover:text-indigo-300"
-            >
-              Sign Up
-            </Link>
-          </p>
         </div>
       </div>
     </>
