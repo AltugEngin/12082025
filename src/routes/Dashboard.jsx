@@ -32,7 +32,7 @@ const userNavigation = [
 const navigation = [
   { name: 'Dashboard', onclick: "/dashboard", current: true },
   { name: 'Team',onclick: "/team", current: false },
-  { name: 'Projects',onclick: "/team", current: false },
+  { name: 'Create Post',onclick: "/createPost", current: false },
   { name: 'Calendar',onclick: "/team", current: false },
   { name: 'Reports',onclick: "/team", current: false },
 ]

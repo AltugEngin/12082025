@@ -4,6 +4,7 @@ import Dashboard from "./routes/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import TeamPage from "./pages/TeamPage";
 import SignUpPage from "./pages/SignUpPage";
+import CreatePostPage from "./pages/CreatePostPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <App></App> },
@@ -21,6 +22,14 @@ export const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <TeamPage></TeamPage>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/createPost",
+    element: (
+      <PrivateRoute>
+        <CreatePostPage></CreatePostPage>
       </PrivateRoute>
     ),
   },
