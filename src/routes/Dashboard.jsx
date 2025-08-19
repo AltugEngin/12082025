@@ -3,7 +3,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from "../assets/keas-logo.png"
 import userLogo from "../assets/wood-pile.svg"
 import { useAuth } from '../context/AuthContext'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
+
 
 
 
@@ -30,9 +31,9 @@ const userNavigation = [
 ]
 
 const navigation = [
-  { name: 'Dashboard', onclick: "/dashboard", current: true },
-  { name: 'Team',onclick: "/team", current: false },
-  { name: 'Create Post',onclick: "/createPost", current: false },
+  { name: 'Dashboard', onclick: "/dashboard", current: false },
+  { name: 'Team',onclick: "/dashboard/team", current: false },
+  { name: 'Create Post',onclick: "/dashboard/createPost", current: false },
   { name: 'Calendar',onclick: "/team", current: false },
   { name: 'Reports',onclick: "/team", current: false },
 ]
@@ -194,11 +195,11 @@ const navigation = [
 
         <header className="relative bg-white shadow-sm dark:bg-gray-800 dark:shadow-none dark:after:pointer-events-none dark:after:absolute dark:after:inset-x-0 dark:after:inset-y-0 dark:after:border-y dark:after:border-white/10">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Dashboard</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">{navigation.name}</h1>
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{/* Your content */} <p>DENEME</p></div>
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"><Outlet></Outlet> </div>
         </main>
       </div>
     </>
