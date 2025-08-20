@@ -1,7 +1,9 @@
 import React from 'react'
 import { supabase } from '../supabaseClient'
 import { useQuery } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
 
+const queryClient=new QueryClient()
 
 const fetchPosts=async ()=>{
  const {data,error}=await supabase.from("posts").select("*")
@@ -11,9 +13,11 @@ return data
 
 export default function PostList() {
 
-const {data,error,isLoading}=useQuery({queryKey:["posts"],queryFn:fetchPosts})
+const {data,error,isLoading}=useQuery({queryKey:["posts"],queryFn:fetchPosts,onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },})
 console.log(data)
   return (
-    <div>{data?.map((item)=><p className='text-amber-300'>{item.title}</p>)}</div>
+    <div>{data?.map((item)=><p className='text-amber-300'>{item.title} {item.supplier}</p>)}</div>
   )
 }

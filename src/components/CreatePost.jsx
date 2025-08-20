@@ -12,6 +12,7 @@ const createPost = async (post) => {
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
+  const [supplier,setSupplier]=useState("")
   const [dialog, setDialog] = useState(false);
 
   const { mutate, isPending, isError } = useMutation({
@@ -23,7 +24,7 @@ export default function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutate({ post: { title } });
+    mutate({ post: { title,supplier } });
   };
 
   return (
@@ -31,9 +32,17 @@ export default function CreatePost() {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit}>
           <input
+          required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter equipment"
+            className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+          ></input>
+          <input
+          required
+            value={supplier}
+            onChange={(e) => setSupplier(e.target.value)}
+            placeholder="Enter supplier"
             className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
           ></input>
           <button
@@ -44,7 +53,7 @@ export default function CreatePost() {
           </button>
         </form>
         <MyModal value={dialog} setValue={setDialog}></MyModal>
-        <PostList></PostList>
+        
       </div>
       
     </div>
