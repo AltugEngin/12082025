@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { supabase } from "../supabaseClient";
 import MyModal from "./Dialog";
+import PostList from "./PostList";
 
 const createPost = async (post) => {
   const { data, error } = await supabase.from("posts").insert({ ...post });
@@ -43,7 +44,9 @@ export default function CreatePost() {
           </button>
         </form>
         <MyModal value={dialog} setValue={setDialog}></MyModal>
+        <PostList></PostList>
       </div>
+      
     </div>
   );
 }
